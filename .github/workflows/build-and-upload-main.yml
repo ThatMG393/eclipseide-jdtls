@@ -12,14 +12,19 @@ jobs:
       with:
         submodules: recursive
         fetch-depth: 0
+    
     - name: Set up JDK 17 ☕
       uses: actions/setup-java@v3
       with:
         java-version: 17
         distribution: 'temurin'
+    
     - name: Build with Maven 🏗️
       run: mvn -B clean verify -DskipTests
-    - name: Deploy to GH-pages 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
+      
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
       with:
-        folder: repository/target/repository # The folder the action should deploy.
+        name: jdtls
+        path: dist/classpath/*.jar
+    
